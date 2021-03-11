@@ -1,5 +1,6 @@
 *{
-	text-align: center;
+	padding: 0;
+	margin: 0;
 }
 
 body{
@@ -18,7 +19,9 @@ canvas {
 }
 
 .wall {
-	border:2px solid blue;
-	padding: 10px;
+	border: rgba(50, 77, 154, 1);
+	background-color: rgba(50, 77, 154, 1);
+	/*opacity: 0.1;*/
+	/*padding: 10px;*/
 
 }

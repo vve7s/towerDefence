@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Tower Defence</title>
-	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<link rel="stylesheet" type="text/css" href="css/common/index.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
@@ -12,16 +12,25 @@
 
 
 	<div class="wall">
-		
+
 	</div>
+
+<!--
+	<div style="border:2px solid blue; width: 600px; height: 45px; padding: 10px;">
+		<img onclick="monster0(event)" id="monster0" src="img/animal0.ico" width="50" height="50">
+	</div>
+-->
 	
-	<canvas style="
-		background-image: url('img/chapter1.png');
-		height: 100%;
-		background-position: center;
-		background-repeat: no-repeat;
-		background-size: cover;"
-	id="canvas"></canvas>
+	<canvas
+		id="canvas"
+		style="
+			background-image: url('img/map/chapter1.png');
+			height: 100%;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;"
+		onmousemove="draw(event)"
+		></canvas>
 
 </div>
 
@@ -29,6 +38,14 @@
 
 
 </body>
-<script src="js/map.js"></script>
+
+<!-- Common -->
+<script src="js/common/index.js"></script>
+
+
+<!-- Character -->
+<script src="js/character/iceman/icemanCreate.js"></script>
+
+
 </html>
 
