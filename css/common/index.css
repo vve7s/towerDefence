@@ -6,21 +6,19 @@
 body{
 	background-color: black;
 	overflow: hidden;
-	height: 100%;
 }
 
 canvas {
-	width: 100%;
+
 }
 
 .container {
-	padding: 0 10%;
 
 }
 
 .wall {
-	border: rgba(50, 77, 154, 1);
-	background-color: rgba(50, 77, 154, 1);
+	background-color: rgba(0, 0, 0, 1);
+	width: 800px;
 	/*opacity: 0.1;*/
 	/*padding: 10px;*/
 
