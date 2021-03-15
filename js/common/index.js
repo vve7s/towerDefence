@@ -29,6 +29,7 @@ var mapOnTheHeroes = []; 	// hero information on the map
 var wrongPlaces = []; 	// forbidden places on the map
 var white = "rgba(0, 0, 0, 0.2)";
 var red = "rgba(207, 0, 15, 0.3)";
+var icemans = []; // array in icemans
 
 
 function draw(e) {
@@ -62,11 +63,13 @@ function draw(e) {
 
 /* hero is actions */
 function imageSelect(selectedImage){
+	//globalHeroImageSelected = selectedImage;
 	if (selectedImage.id == "imgIceman") {
 		globalHeroImageSelected = imgIcemanSpriteLeft;
 	} else if (selectedImage.id == "imgFireman") {
 		globalHeroImageSelected = imgFiremanSpriteLeft;
 	}
+	
 }
 
 
@@ -88,6 +91,7 @@ function putHeroesArray(e) {
 				cnsW: 70
 			});
 
+			/* wrong places adding */
 			wrongPlaces.push({
 				imgWX: {
 					start: e.offsetX-globalHeroImageSelected.getAttribute("ww")*3,
@@ -98,6 +102,23 @@ function putHeroesArray(e) {
 					end: e.offsetY+parseInt(globalHeroImageSelected.getAttribute("wh")*2)
 				}
 			});
+
+			/* hero is create */
+			if (globalHeroImageSelected == imgIcemanSpriteLeft) {
+				icemans.push(new Iceman(
+					{
+						start: e.offsetX-globalHeroImageSelected.getAttribute("ww")*3,
+						end: e.offsetX+parseInt(globalHeroImageSelected.getAttribute("ww")*3)
+					}, 
+					{
+						start: e.offsetY-globalHeroImageSelected.getAttribute("wh")*2,
+						end: e.offsetY+parseInt(globalHeroImageSelected.getAttribute("wh")*2)
+					}, 
+					Math.round(Math.random()*100))
+				);
+			}
+
+
 		}
 	}
 }
@@ -177,12 +198,3 @@ function whiteOrRed(x, y){
 }
 
 
-/* map in keypress listen */
-window.addEventListener("keydown", function (event) {
-	/* leave the hero */
-	if (event.key === "Escape") {
-        globalHeroImageSelected = null;
-    } else {
-    	//console.log(mapOnTheHeroes);
-    }
-});
