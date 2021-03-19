@@ -26,11 +26,13 @@ var wall = document.getElementsByClassName("wall")[0];
 /* variables */
 var globalHeroImageSelected = null; 	// image of the chosen hero
 var mapOnTheHeroes = []; 	// hero information on the map
+var mapOnTheHeroesConfigs = []; 	// hero settings on the map
 var wrongPlaces = []; 	// forbidden places on the map
 var white = "rgba(0, 0, 0, 0.2)";
 var red = "rgba(207, 0, 15, 0.3)";
 var icemans = []; // array in icemans
 
+mapOnTheHeroesConfigs.push({status:0});
 
 function draw(e) {
 	//console.log("x: ", e.offsetX, " y: ", e.offsetY);
@@ -64,8 +66,15 @@ function draw(e) {
 /* hero is actions */
 function imageSelect(selectedImage){
 	//globalHeroImageSelected = selectedImage;
+	/*
 	if (selectedImage.id == "imgIceman") {
 		globalHeroImageSelected = imgIcemanSpriteLeft;
+	} else if (selectedImage.id == "imgFireman") {
+		globalHeroImageSelected = imgFiremanSpriteLeft;
+	}
+	*/
+	if (selectedImage.id == "imgIceman") {
+		globalHeroImageSelected = new Iceman().moveLeft();
 	} else if (selectedImage.id == "imgFireman") {
 		globalHeroImageSelected = imgFiremanSpriteLeft;
 	}
@@ -104,20 +113,35 @@ function putHeroesArray(e) {
 			});
 
 			/* hero is create */
+			/*
 			if (globalHeroImageSelected == imgIcemanSpriteLeft) {
 				icemans.push(new Iceman(
 					{
-						start: e.offsetX-globalHeroImageSelected.getAttribute("ww")*3,
-						end: e.offsetX+parseInt(globalHeroImageSelected.getAttribute("ww")*3)
+						start: e.offsetX-globalHeroImageSelected.getAttribute("ww"),
+						end: e.offsetX+parseInt(globalHeroImageSelected.getAttribute("ww"))
 					}, 
 					{
-						start: e.offsetY-globalHeroImageSelected.getAttribute("wh")*2,
-						end: e.offsetY+parseInt(globalHeroImageSelected.getAttribute("wh")*2)
+						start: e.offsetY-globalHeroImageSelected.getAttribute("wh"),
+						end: e.offsetY+parseInt(globalHeroImageSelected.getAttribute("wh"))
 					}, 
 					Math.round(Math.random()*100))
 				);
 			}
-
+			*/
+			if (toString(globalHeroImageSelected) == toString(new Iceman().moveLeft())) {
+				var icemanTemp = new Iceman();
+				icemanTemp.create(
+				{
+					start: e.offsetX-globalHeroImageSelected.getAttribute("ww"),
+					end: e.offsetX+parseInt(globalHeroImageSelected.getAttribute("ww"))
+				}, 
+				{
+					start: e.offsetY-globalHeroImageSelected.getAttribute("wh"),
+					end: e.offsetY+parseInt(globalHeroImageSelected.getAttribute("wh"))
+				}, 
+				Math.round(Math.random()*100))
+				icemans.push(icemanTemp);
+			}
 
 		}
 	}
@@ -140,6 +164,23 @@ function putHeroesMap() {
 					value.cnsH,
 					value.cnsW
 				)
+			}
+		})
+	}
+
+	if (mapOnTheHeroesConfigs != []) {
+		mapOnTheHeroesConfigs.forEach(function(value){
+			if (value.status == 1) {
+				context.beginPath();
+				context.arc(
+					value.x,
+					value.y,
+					value.area,
+					value.pi1,
+					value.pi2,
+				);
+				context.fillStyle = white;
+				context.fill();
 			}
 		})
 	}

@@ -17,10 +17,12 @@ window.addEventListener("click", function (event) {
 	const x = event.clientX - rect.left;
 	const y = event.clientY - rect.top;
 	
+	
 	for (iceman in icemans) {
-		if (icemans[iceman].hops(event.offsetX, event.offsetY)) {
+		if (icemans[iceman].click(x, y)) {
 			break;
 		}
 	}
+	
 	
 });
