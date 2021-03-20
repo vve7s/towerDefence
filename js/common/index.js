@@ -19,8 +19,12 @@ canvas = document.getElementById("canvas");
 context = canvas.getContext("2d");
 
 
-/* elements */
+/* heroes */
 var wall = document.getElementsByClassName("wall")[0];
+
+
+/* heroes skills */
+var heroSkills = document.getElementsByClassName("config")[0];
 
 
 /* variables */
@@ -33,6 +37,9 @@ var red = "rgba(207, 0, 15, 0.3)";
 var icemans = []; // array in icemans
 
 mapOnTheHeroesConfigs.push({status:0});
+
+
+//setInterval(draw,255);
 
 function draw(e) {
 	//console.log("x: ", e.offsetX, " y: ", e.offsetY);
@@ -65,6 +72,7 @@ function draw(e) {
 
 /* hero is actions */
 function imageSelect(selectedImage){
+	console.log(selectedImage)
 	//globalHeroImageSelected = selectedImage;
 	/*
 	if (selectedImage.id == "imgIceman") {
@@ -128,6 +136,8 @@ function putHeroesArray(e) {
 				);
 			}
 			*/
+
+			/* hero is create in the map */
 			if (toString(globalHeroImageSelected) == toString(new Iceman().moveLeft())) {
 				var icemanTemp = new Iceman();
 				icemanTemp.create(
@@ -139,7 +149,7 @@ function putHeroesArray(e) {
 					start: e.offsetY-globalHeroImageSelected.getAttribute("wh"),
 					end: e.offsetY+parseInt(globalHeroImageSelected.getAttribute("wh"))
 				}, 
-				Math.round(Math.random()*100))
+				Math.round(Math.random()*100));
 				icemans.push(icemanTemp);
 			}
 
@@ -168,6 +178,7 @@ function putHeroesMap() {
 		})
 	}
 
+	/* hero get area */
 	if (mapOnTheHeroesConfigs != []) {
 		mapOnTheHeroesConfigs.forEach(function(value){
 			if (value.status == 1) {
