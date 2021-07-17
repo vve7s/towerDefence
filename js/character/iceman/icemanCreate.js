@@ -1,4 +1,10 @@
 class Iceman {
+	
+	heroConfig = {
+		areaIncreaseRate = 25;
+		
+	}
+
 	constructor() {
 		this.imgIcemanSpriteLeft = document.createElement("img");
 		this.imgIcemanSpriteLeft.setAttribute("id", "imgIcemanSpriteLeft");
@@ -30,15 +36,16 @@ class Iceman {
 		    y>this.ypoint.start &&
 		    y<this.ypoint.end
 		   ) {
-		   	console.log(this.id);
+		   	console.log('id: ' + this.id + ' kahraman');
 			this.getArea();	/* showing the hero's area */
-			this.getSkills();
+			this.getSkills(); /*showing the hero's skills */
 			return true;
 		} else {
 			return false;
 		}
 	}
 
+	/* bring the area */
 	getArea() {
 		mapOnTheHeroesConfigs = [];
 		mapOnTheHeroesConfigs.push({
@@ -51,13 +58,38 @@ class Iceman {
 		});
 	}
 
+	getId() {
+		return this.id;
+	}
+
 	/* skills of the hero */
 	getSkills() {
 		
+		/* hero skilss showing */
+		this.heroSkillArea = document.createElement("img");
+		this.heroSkillArea.setAttribute("id", "skillArea");
+		this.heroSkillArea.setAttribute("src", "img/character/iceman/skills/area.png");
+		this.heroSkillArea.setAttribute("width", "50");
+		this.heroSkillArea.setAttribute("height", "50");
+		//this.heroSkillArea.setAttribute("onClick", "setArea(" + this.getId() + ")");
+		this.heroSkillArea.setAttribute("onClick", "icemans[" + this.id + "].setArea(" + 250 + ")");
+		
+		heroSkills.appendChild(this.heroSkillArea);
+		
+		/*
 		return{
-			setArea:1
+			setArea:1 // ne ise yaradigini hatirlamiyorum
 		}
+		*/
+		
 	}
+
+	setArea(areaPoint) {
+		console.log(this.areaIncreaseRate)
+		this.imgIcemanSpriteLeft.setAttribute("area", areaPoint);
+		this.getArea(); // refresh to area
+	}
+
 }
 
 
