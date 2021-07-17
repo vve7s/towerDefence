@@ -36,13 +36,18 @@ var white = "rgba(0, 0, 0, 0.2)";
 var red = "rgba(207, 0, 15, 0.3)";
 var icemans = []; // array in icemans
 
-mapOnTheHeroesConfigs.push({status:0});
+mapOnTheHeroesConfigs.push({status:0});	// bunun ne ise yaradigini unuttum 
 
 
-//setInterval(draw,255);
+setInterval(draw, 250);
 
 function draw(e) {
-	//console.log("x: ", e.offsetX, " y: ", e.offsetY);
+	
+	if (typeof e != 'undefined') {
+		lastOffSetX = e.offsetX;
+		lastOffSetY = e.offsetY;
+	}
+
 	context.clearRect(0, 0, canvas.width, canvas.height); 	// context is clear
 	putHeroesMap(); 	// puts the heroes on the map
 	if (globalHeroImageSelected != null) {
@@ -52,19 +57,19 @@ function draw(e) {
 			0,
 			50,
 			50,
-			(e.offsetX-globalHeroImageSelected.getAttribute("ww")*3),
-			(e.offsetY-globalHeroImageSelected.getAttribute("wh")),
+			((typeof e === 'undefined' ? lastOffSetX : e.offsetX)-globalHeroImageSelected.getAttribute("wh")),
+			((typeof e === 'undefined' ? lastOffSetY : e.offsetY)-globalHeroImageSelected.getAttribute("wh")),
 			70,
 			70
 		);
 		context.beginPath();
-		context.arc(e.offsetX,
-					e.offsetY,
+		context.arc((typeof e === 'undefined' ? lastOffSetX : e.offsetX),
+					(typeof e === 'undefined' ? lastOffSetY : e.offsetY),
 					globalHeroImageSelected.getAttribute("area"),
 					(0*Math.PI),
 					(2*Math.PI)
 					);
-		context.fillStyle = whiteOrRed((e.offsetX), (e.offsetY));
+		context.fillStyle = whiteOrRed((typeof e === 'undefined' ? lastOffSetX : e.offsetX), (typeof e === 'undefined' ? lastOffSetY : e.offsetY));
 		context.fill();
 	}
 }
@@ -92,6 +97,7 @@ function imageSelect(selectedImage){
 
 /* put heroes array */
 function putHeroesArray(e) {
+
 	if (globalHeroImageSelected != null){
 		if (isitPut(e.offsetX, e.offsetY)) {
 			mapOnTheHeroes.push({
@@ -141,16 +147,17 @@ function putHeroesArray(e) {
 			if (toString(globalHeroImageSelected) == toString(new Iceman().moveLeft())) {
 				var icemanTemp = new Iceman();
 				icemanTemp.create(
-				{
-					start: e.offsetX-globalHeroImageSelected.getAttribute("ww"),
-					end: e.offsetX+parseInt(globalHeroImageSelected.getAttribute("ww"))
-				}, 
-				{
-					start: e.offsetY-globalHeroImageSelected.getAttribute("wh"),
-					end: e.offsetY+parseInt(globalHeroImageSelected.getAttribute("wh"))
-				}, 
-				Math.round(Math.random()*100));
-				icemans.push(icemanTemp);
+					{
+						start: e.offsetX-globalHeroImageSelected.getAttribute("ww"),
+						end: e.offsetX+parseInt(globalHeroImageSelected.getAttribute("ww"))
+					}, 
+					{
+						start: e.offsetY-globalHeroImageSelected.getAttribute("wh"),
+						end: e.offsetY+parseInt(globalHeroImageSelected.getAttribute("wh"))
+					}, 
+					Math.round(Math.random()*100)	// random degil, count sekline artan bir deger olmali
+				);
+				icemans[icemanTemp.getId()] = icemanTemp; // assigns hero iceman to directory icemans
 			}
 
 		}
@@ -158,7 +165,7 @@ function putHeroesArray(e) {
 }
 
 
-/* put heroes map */
+/* put heroes map */	/* canvac action click */
 function putHeroesMap() {
 	if (mapOnTheHeroes != []) {
 		mapOnTheHeroes.forEach(function(value){
@@ -179,7 +186,7 @@ function putHeroesMap() {
 	}
 
 	/* hero get area */
-	if (mapOnTheHeroesConfigs != []) {
+	if (mapOnTheHeroesConfigs.length > 0) {
 		mapOnTheHeroesConfigs.forEach(function(value){
 			if (value.status == 1) {
 				context.beginPath();
@@ -241,7 +248,7 @@ function isitPut(x, y){
 
 
 /* area is white or red */
-function whiteOrRed(x, y){
+function whiteOrRed(x, y) {
 	if (isitPut(x, y)) {
 		return white;
 	} else {
@@ -250,3 +257,9 @@ function whiteOrRed(x, y){
 }
 
 
+/* hide hero skills */
+function heroSkillsHide() {
+	while (heroSkills.firstChild) {
+    	heroSkills.removeChild(heroSkills.firstChild); 
+    }
+}

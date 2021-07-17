@@ -4,10 +4,7 @@ window.addEventListener("keydown", function (event) {
 	if (event.key === "Escape") {
         globalHeroImageSelected = null; /* selected hero not showing */
         mapOnTheHeroesConfigs = []; /* selected hero area not showing */
-        while (heroSkills.firstChild) {
-        	heroSkills.removeChild(heroSkills.firstChild); /* hero skills not showing */
-        }
-        console.log(icemans)
+        heroSkillsHide(); /* hero skills not showing */
 
     } else {
     	//console.log(mapOnTheHeroes);
@@ -16,25 +13,24 @@ window.addEventListener("keydown", function (event) {
 
 
 /* map in click listen */
-window.addEventListener("click", function (event) {
+canvas.addEventListener("click", function (event) {
+
 	const rect = canvas.getBoundingClientRect();
 	const x = event.clientX - rect.left;
 	const y = event.clientY - rect.top;
 	
-	
+
+	heroSkillsHide(); /* hero skills not showing */
+	mapOnTheHeroesConfigs = [];	/* click outside area, delete area */
+
 	for (iceman in icemans) {
 		if (icemans[iceman].click(x, y)) {
 
-			heroSkillArea = document.createElement("img");
-			heroSkillArea.setAttribute("id", "skillArea");
-			heroSkillArea.setAttribute("src", "img/character/iceman/skills/area.png");
-			heroSkillArea.setAttribute("width", "50");
-			heroSkillArea.setAttribute("height", "50");
-			heroSkills.appendChild(heroSkillArea);
 
 			break;
 		}
 	}
 	
+
 	
 });
