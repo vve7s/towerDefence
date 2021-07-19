@@ -42,7 +42,7 @@ mapOnTheHeroesConfigs.push({status:0});	// bunun ne ise yaradigini unuttum
 setInterval(draw, 250);
 
 function draw(e) {
-	
+
 	if (typeof e != 'undefined') {
 		lastOffSetX = e.offsetX;
 		lastOffSetY = e.offsetY;
