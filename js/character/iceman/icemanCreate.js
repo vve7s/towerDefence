@@ -1,19 +1,60 @@
 class Iceman {
 	
-	heroConfig = {
-		areaIncreaseRate = 25;
+	/* hero upgrade information */
+	heroUpgrade = {
+		'1': {
+			'area': {
+				'img': 'img/character/iceman/skills/area1.png',
+				'rate': 75,
+			},
+			'fire': {
+				'speed': 25,
+			},
+		},
+		'2': {
+			'area': {
+				'img': 'img/character/iceman/skills/area2.png',
+				'rate': 100,
+			},
+			'fire': {
+				'speed': 50,
+			},
+		},
+		'3': {
+			'area': {
+				'img': 'img/character/iceman/skills/area3.png',
+				'rate': 120,
+			},
+			'fire': {
+				'speed': 70,
+			},	
+		}
 		
+	}
+
+	/* hero information */
+	heroInformation = {
+		'areaRateLevel': 0,
+		'fireSpeedLevel': 0,
+		'area': 50,
+		'fireSpeed': 25,
+		'width': 50,
+		'height': 50,
+		'wh': 25,
+		'ww': 10,
+		'src': 'img/character/iceman/iceman_map_in_left.png',
+
 	}
 
 	constructor() {
 		this.imgIcemanSpriteLeft = document.createElement("img");
 		this.imgIcemanSpriteLeft.setAttribute("id", "imgIcemanSpriteLeft");
-		this.imgIcemanSpriteLeft.setAttribute("src", "img/character/iceman/iceman_map_in_left.png");
-		this.imgIcemanSpriteLeft.setAttribute("width", "50");
-		this.imgIcemanSpriteLeft.setAttribute("height", "50");
-		this.imgIcemanSpriteLeft.setAttribute("wh", "25");
-		this.imgIcemanSpriteLeft.setAttribute("ww", "10");
-		this.imgIcemanSpriteLeft.setAttribute("area", "75");
+		this.imgIcemanSpriteLeft.setAttribute("src", this.heroInformation.src);
+		this.imgIcemanSpriteLeft.setAttribute("width", this.heroInformation.width);
+		this.imgIcemanSpriteLeft.setAttribute("height", this.heroInformation.height);
+		this.imgIcemanSpriteLeft.setAttribute("wh", this.heroInformation.wh); // selected area
+		this.imgIcemanSpriteLeft.setAttribute("ww", this.heroInformation.ww); // selected area
+		this.imgIcemanSpriteLeft.setAttribute("area", this.heroInformation.area);
 	}
 
 	create(xpoint, ypoint, id) {
@@ -45,6 +86,27 @@ class Iceman {
 		}
 	}
 
+	/* set to area */
+	setArea() {
+
+
+		/* Can the skill be upgraded? */
+		if (this.areaIsUpgraded()) {
+					
+			this.heroInformation.areaRateLevel++; // level up
+			this.heroInformation.area = this.heroUpgrade[this.heroInformation.areaRateLevel].area.rate; // change to heroInformation in area
+			this.imgIcemanSpriteLeft.setAttribute("area", this.heroInformation.area); // change to area
+			this.getArea(); // refresh to area
+			if (this.areaIsUpgraded()) {
+				document.getElementById("skillArea").setAttribute("src", this.heroUpgrade[this.heroInformation.areaRateLevel+1].area.img); // change to img
+			} else {
+				document.getElementById("skillArea").remove();
+			}
+		}
+
+
+	}
+
 	/* bring the area */
 	getArea() {
 		mapOnTheHeroesConfigs = [];
@@ -65,30 +127,34 @@ class Iceman {
 	/* skills of the hero */
 	getSkills() {
 		
-		/* hero skilss showing */
-		this.heroSkillArea = document.createElement("img");
-		this.heroSkillArea.setAttribute("id", "skillArea");
-		this.heroSkillArea.setAttribute("src", "img/character/iceman/skills/area.png");
-		this.heroSkillArea.setAttribute("width", "50");
-		this.heroSkillArea.setAttribute("height", "50");
-		//this.heroSkillArea.setAttribute("onClick", "setArea(" + this.getId() + ")");
-		this.heroSkillArea.setAttribute("onClick", "icemans[" + this.id + "].setArea(" + 250 + ")");
-		
-		heroSkills.appendChild(this.heroSkillArea);
+		/* hero skils showing */
+		if (this.areaIsUpgraded()) {
+			this.heroSkillArea = document.createElement("img");
+			this.heroSkillArea.setAttribute("id", "skillArea");
+			this.heroSkillArea.setAttribute("src", this.heroUpgrade[this.heroInformation.areaRateLevel+1].area.img);
+			this.heroSkillArea.setAttribute("width", "50");
+			this.heroSkillArea.setAttribute("height", "50");
+			this.heroSkillArea.setAttribute("onClick", "icemans[" + this.id + "].setArea()");
+			
+			heroSkills.appendChild(this.heroSkillArea);
+		}
 		
 		/*
 		return{
 			setArea:1 // ne ise yaradigini hatirlamiyorum
 		}
 		*/
-		
 	}
 
-	setArea(areaPoint) {
-		console.log(this.areaIncreaseRate)
-		this.imgIcemanSpriteLeft.setAttribute("area", areaPoint);
-		this.getArea(); // refresh to area
+	/* Can the skill be upgraded? */
+	areaIsUpgraded() {
+		if (typeof this.heroUpgrade[this.heroInformation.areaRateLevel+1] !== 'undefined')
+			if (typeof this.heroUpgrade[this.heroInformation.areaRateLevel+1].area !== 'undefined')
+				return true;
+		return false;		
 	}
+
+
 
 }
 
