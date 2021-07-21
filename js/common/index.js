@@ -35,6 +35,16 @@ var wrongPlaces = []; 	// forbidden places on the map
 var white = "rgba(0, 0, 0, 0.2)";
 var red = "rgba(207, 0, 15, 0.3)";
 var icemans = []; // array in icemans
+var user; // user
+
+/* they will run when the page is loaded */
+document.addEventListener("DOMContentLoaded", function() {
+
+	user = new User(); // creating new user // difficulty level will be added
+	user.domForMoney();
+	user.domForHealt();
+
+});
 
 mapOnTheHeroesConfigs.push({status:0});	// bunun ne ise yaradigini unuttum 
 
@@ -98,8 +108,24 @@ function imageSelect(selectedImage){
 /* put heroes array */
 function putHeroesArray(e) {
 
+	
+	var hero;
 	if (globalHeroImageSelected != null){
+
+		if (toString(globalHeroImageSelected) == toString(new Iceman().moveLeft())){
+			hero = new Iceman();
+
+			/* user check money */
+			if (!user.checkMoney(hero.getCost())){
+				console.log("Para yetersiz");
+				return false;
+			}
+
+		}
+
 		if (isitPut(e.offsetX, e.offsetY)) {
+
+			/* hero is create in the map */
 			mapOnTheHeroes.push({
 				status: 1,
 				isThereMap: 0,
@@ -113,7 +139,7 @@ function putHeroesArray(e) {
 				cnsH: 70,
 				cnsW: 70
 			});
-
+			
 			/* wrong places adding */
 			wrongPlaces.push({
 				imgWX: {
@@ -143,10 +169,10 @@ function putHeroesArray(e) {
 			}
 			*/
 
-			/* hero is create in the map */
+			/* keeps heroes' places on the map */
 			if (toString(globalHeroImageSelected) == toString(new Iceman().moveLeft())) {
-				var icemanTemp = new Iceman();
-				icemanTemp.create(
+				hero = new Iceman();
+				hero.create(
 					{
 						start: e.offsetX-globalHeroImageSelected.getAttribute("ww"),
 						end: e.offsetX+parseInt(globalHeroImageSelected.getAttribute("ww"))
@@ -157,10 +183,19 @@ function putHeroesArray(e) {
 					}, 
 					Math.round(Math.random()*100)	// random degil, count sekline artan bir deger olmali
 				);
-				icemans[icemanTemp.getId()] = icemanTemp; // assigns hero iceman to directory icemans
+				icemans[hero.getId()] = hero; // assigns hero iceman to directory icemans
+			}
+
+			/* user deduct money */
+			if (!user.deductMoney(hero.getCost())){
+				console.log("Kahramanı alamadin, paran yetersiz olabilir");
+				return false;
 			}
 
 		}
+
+		
+
 	}
 }
 

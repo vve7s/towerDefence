@@ -36,6 +36,7 @@ class Iceman {
 	heroInformation = {
 		'areaRateLevel': 0,
 		'fireSpeedLevel': 0,
+		'cost': 200, // $
 		'area': 50,
 		'fireSpeed': 25,
 		'width': 50,
@@ -72,6 +73,16 @@ class Iceman {
 	}
 
 	click(x, y) {
+
+
+		/* check money */
+		/*
+		if (!user.checkMoney(this.heroInformation.cost))
+			return 0;
+		if (!user.deductMoney(this.heroInformation.cost))
+			return 0;
+		*/
+
 		if (x>this.xpoint.start &&
 		    x<this.xpoint.end &&
 		    y>this.ypoint.start &&
@@ -122,6 +133,10 @@ class Iceman {
 
 	getId() {
 		return this.id;
+	}
+
+	getCost() {
+		return this.heroInformation.cost;
 	}
 
 	/* skills of the hero */
