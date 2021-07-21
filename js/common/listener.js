@@ -26,7 +26,7 @@ canvas.addEventListener("click", function (event) {
 	for (iceman in icemans) {
 		if (icemans[iceman].click(x, y)) {
 
-
+			
 			break;
 		}
 	}
@@ -34,3 +34,9 @@ canvas.addEventListener("click", function (event) {
 
 	
 });
+
+
+document.getElementById("start").addEventListener("click", function(){
+	console.log("Chapter Start");
+
+})

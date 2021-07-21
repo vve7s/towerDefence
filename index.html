@@ -15,19 +15,45 @@
 
 	</div>
 	
-	<canvas
-		id = "canvas"
-		width = "800"
-		height = "600"
-		style = "
-			background-repeat: no-repeat;
-			background-size: 800px 600px;
-			"
-		onmousemove = "draw(event)"
-		onclick = "putHeroesArray(event)"
-		>
-	</canvas>
-	<!--onmousemove = "draw(event)"-->
+	<div class="row">
+		<div class="columnLeft">
+
+			<canvas
+				id = "canvas"
+				width = "800"
+				height = "600"
+				style = "
+					background-repeat: no-repeat;
+					background-size: 800px 600px;
+					"
+				onmousemove = "draw(event)"
+				onclick = "putHeroesArray(event)"
+				>
+			</canvas>
+
+		</div>
+		<div class="columnRight">
+
+			<div class="user">
+				<ul>
+					<li style="height: 75px; text-decoration: none;">
+						<img id="start" src="img/user/start.png" height="50" width="50">
+					</li>
+					<li class="left">
+						<img src="img/user/healt.png" height="25" width="25">
+						<label id="money" style="font-size: 25px;"></label>
+					</li>
+					<li class="left">
+						<img src="img/user/dollar.png" height="25" width="25">
+						<label id="healt" style="font-size: 25px;"></label>
+					</li>
+				</ul>
+			</div>
+			
+		</div>
+	</div>
+
+	
 
 	<div class="config">
 
@@ -42,13 +68,15 @@
 <!-- Common -->
 <script src="js/common/index.js"></script>
 <script src="js/common/listener.js"></script>
-<script src="js/common/commonHeroesSkillsChange.js"></script>
+<!-- <script src="js/common/commonHeroesSkillsChange.js"></script> -->
 
 
 <!-- Character -->
 <script src="js/character/iceman/icemanCreate.js"></script>
 <script src="js/character/fireman/firemanCreate.js"></script>
 
+<!-- User -->
+<script src="js/user/user.js"></script>
 
 <!-- Map -->
 <script src="js/map/chapter1.js"></script>
