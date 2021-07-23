@@ -41,8 +41,11 @@ var user; // user
 document.addEventListener("DOMContentLoaded", function() {
 
 	user = new User(); // creating new user // difficulty level will be added
-	user.domForMoney();
-	user.domForHealt();
+	user.domForMoney(); // dom for money
+	user.domForHealt(); // dom for healt
+
+	chapter = new Chapter1(); // creating chapter map
+	chapter.getWrongPlaces(); // creating chapter in wrong places
 
 });
 

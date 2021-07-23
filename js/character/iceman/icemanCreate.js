@@ -6,6 +6,7 @@ class Iceman {
 			'area': {
 				'img': 'img/character/iceman/skills/area1.png',
 				'rate': 75,
+				'cost': 100,
 			},
 			'fire': {
 				'speed': 25,
@@ -15,6 +16,7 @@ class Iceman {
 			'area': {
 				'img': 'img/character/iceman/skills/area2.png',
 				'rate': 100,
+				'cost': 200,
 			},
 			'fire': {
 				'speed': 50,
@@ -24,6 +26,7 @@ class Iceman {
 			'area': {
 				'img': 'img/character/iceman/skills/area3.png',
 				'rate': 120,
+				'cost': 300,
 			},
 			'fire': {
 				'speed': 70,
@@ -103,15 +106,21 @@ class Iceman {
 
 		/* Can the skill be upgraded? */
 		if (this.areaIsUpgraded()) {
+			if (user.checkMoney(this.heroUpgrade[this.heroInformation.areaRateLevel+1].area.cost)){ // check money
+				if (user.deductMoney(this.heroUpgrade[this.heroInformation.areaRateLevel+1].area.cost)){ // buy the skill /+/ check money
 					
-			this.heroInformation.areaRateLevel++; // level up
-			this.heroInformation.area = this.heroUpgrade[this.heroInformation.areaRateLevel].area.rate; // change to heroInformation in area
-			this.imgIcemanSpriteLeft.setAttribute("area", this.heroInformation.area); // change to area
-			this.getArea(); // refresh to area
-			if (this.areaIsUpgraded()) {
-				document.getElementById("skillArea").setAttribute("src", this.heroUpgrade[this.heroInformation.areaRateLevel+1].area.img); // change to img
+					this.heroInformation.areaRateLevel++; // level up
+					this.heroInformation.area = this.heroUpgrade[this.heroInformation.areaRateLevel].area.rate; // change to heroInformation in area
+					this.imgIcemanSpriteLeft.setAttribute("area", this.heroInformation.area); // change to area
+					this.getArea(); // refresh to area
+					if (this.areaIsUpgraded()) {
+						document.getElementById("skillArea").setAttribute("src", this.heroUpgrade[this.heroInformation.areaRateLevel+1].area.img); // change to img
+					} else {
+						document.getElementById("skillArea").remove();
+					}
+				}
 			} else {
-				document.getElementById("skillArea").remove();
+				console.log("Yetersiz Bakiye!");
 			}
 		}
 
