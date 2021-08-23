@@ -45,14 +45,12 @@ canvas {
 
 .columnLeft {
 	float: left;
-	width: 75%;
 	padding: 10px;
 }
 
 
 .columnRight {
 	float: left;
-	width: 25%;
 	padding: 10px;
 }
 

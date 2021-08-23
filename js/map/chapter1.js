@@ -1,8 +1,10 @@
 class Chapter1 {
 
+	/* chapter information */
+	chapterInformation = {};
 
 	constructor() {
-		canvas.style.backgroundImage = "url('img/map/chapter1.png')";
+		canvas.style.backgroundImage = "url('img/map/chapter1.png')"; // background image
 	}
 
 	/* map in wrong places */
@@ -161,5 +163,51 @@ class Chapter1 {
 
 		context.stroke();
 	}
+
+	low() {
+		this.chapterInformation = {
+			'totalRound': 15,
+			'roundSpeed': 10,
+			'rounds': {
+				1:{
+					'redBandana': 10,
+					'blueBandana': 11,
+
+				},
+				2:{
+					'redBandana': 20,
+					'blueBandana': 21,
+
+				},
+				3:{
+					'redBandana': 30,
+					'blueBandana': 31,
+
+				},
+				4:{
+					'redBandana': 40,
+					'blueBandana': 41,
+
+				},
+				5:{
+					'redBandana': 50,
+					'blueBandana': 51,
+
+				}
+			}
+
+		}
+		//return this.chapterInformation;
+	}
+
+	medium() {
+
+	}
+
+	high() {
+
+	}
+
+
 }
 

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<canvas id="canvas" height="600" width="800" style="border: 2px solid red;"></canvas>
+
+</body>
+</html>
+
+<script type="text/javascript">
+
+	canvas = document.getElementById("canvas");
+	context = canvas.getContext("2d");
+	const spriteMonsterImage = new Image();
+	spriteMonsterImage.src = "monster1.png";
+
+	var w = 0;
+	var h = 60;
+
+	
+	frame();
+
+	function frame() {
+		setInterval(animate, 100);
+	}
+
+	function animate() {
+		context.clearRect(0, 0, 800, 600);
+		context.drawImage(spriteMonsterImage, w, 120, 60, 60, h, 0, 60, 60);
+		w+=60;
+		h+=10;
+		if (w>120) {w=0;}
+		if (h>600) {h=0;}
+	}
+	
+/*
+	frame();
+
+	var lastRender = 0;
+	var counter = 0;
+	function frame() {
+		
+		counter++;
+	    if (counter%10 > 4) {
+	    	counter = 0;
+	    	animation();
+	    }
+
+	    requestAnimationFrame(frame);
+	}
+
+	function animation() {
+		context.clearRect(0, 0, 800, 600);
+		context.drawImage(spriteMonsterImage, w, 120, 60, 60, h, 0, 60, 60);
+
+		w+=60;
+		h+=5;
+		if (w>120) {w=0;}
+		if (h>600) {h=0;}
+	}
+*/
+</script>
