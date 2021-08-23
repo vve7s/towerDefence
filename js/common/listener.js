@@ -39,6 +39,21 @@ canvas.addEventListener("click", function (event) {
 document.getElementById("start").addEventListener("click", function(){
 	console.log("Chapter Start");
 
+	chapter.low();  // bu oyunun ilk basinda seviye secerken yazilacak
+	let redBandana = new redBandanaCreate();
+	redBandana.move();
+
+	/*
+	for (var round in chapter.chapterInformation.rounds) {
+		for (var monster in chapter.chapterInformation.rounds[round]) {
+			//console.log(monster + ':' + chapter.chapterInformation.rounds[round][monster]);
+
+		}
+	}
+	*/
+
+
+	/*
 	let canavarSayisi = 10;
 	let yolKonumu = [];
 
@@ -97,5 +112,6 @@ document.getElementById("start").addEventListener("click", function(){
 		},500*i);
 	}
 
+	*/
 
 })
