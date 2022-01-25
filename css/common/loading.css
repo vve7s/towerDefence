@@ -1,0 +1,51 @@
+.loader {
+	height: 64vh;
+	width: 81vw;
+	overflow: hidden;
+	background-color: #16191e;
+	position: absolute;
+	opacity: 1;
+}
+
+
+.loader > div {
+	height: 100px;
+	width: 100px;
+	border: 2px solid #45474b;
+	border-top-color: #fff;
+	position: absolute;
+	margin: auto;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	border-radius: 52%;
+	animation: spin 1.5s infinite linear;
+}
+
+
+.loader > span {
+	font-family: roboto-regulars;
+	height: 190px;
+	width: 105px;
+	border-top-color: #fff;
+	position: absolute;
+	margin: auto;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	color: #fff;
+	font-size: 25px;
+}
+
+@keyframes spin {
+	100%{
+		transform: rotate(360deg);
+	}
+}
+
+.loaderNone {
+	opacity: 0;
+	transition: opacity 0.5s linear;
+}
