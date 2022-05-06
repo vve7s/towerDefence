@@ -1,10 +1,8 @@
 class Start {
 
 
-
-
 	constructor() {
-		this.startStatus = false;
+		this.startStatus = false; // game start status
 		this.create();
 
 	}
@@ -12,10 +10,8 @@ class Start {
 
 
 	create() {
-		canvas.style.backgroundImage = "url('img/index/main.jpg')";
-
-		// start button create
-		this.startButtonDOM();
+		canvas.style.backgroundImage = "url('img/index/main.jpg')"; // createt background
+		this.startButtonDOM(); // start button create
 	}
 
 
@@ -36,6 +32,10 @@ class Start {
 
 	}
 
+	startButtonClear() {
+		context.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+	}
+
 
 	getStartButtonRect() {
 		return {
@@ -47,9 +47,9 @@ class Start {
 	}
 
 
-	isInside(pos){
+	isInside(x, y){
 		let rect = this.getStartButtonRect();
-		return pos.x > rect.x && pos.x < rect.x+rect.width && pos.y < rect.y+rect.heigth && pos.y > rect.y;
+		return x > rect.x && x < rect.x+rect.width && y < rect.y+rect.heigth && y > rect.y;
 	}
 
 
