@@ -11,8 +11,11 @@ document.addEventListener("DOMContentLoaded", () => {
 document.getElementById("start").addEventListener("click", () => {
 	console.log("start basildi");
 
-	redBandanas = new redBandana();
+
+	// redBandanas = new redBandana();
 	chapter.startStatus = true;
+	chapter.next();
+	
 
 });
 
@@ -33,7 +36,7 @@ document.getElementById("canvas").addEventListener("click", (event) => {
 	heroSkillsHide(); // clear hero configs
 
 	// let mousePos = getMousePos(canvas, event);
-	// console.log(event);
+	console.log(e.offsetX, e.offsetY);
 
 	if (!start.startStatus) { // game starting
 		if (start.isInside(e.offsetX, e.offsetY)) { // clicked start

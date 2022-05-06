@@ -14,7 +14,7 @@ var wrongPlaces = []; // forbidden places on the map
 var e; // global mouse event
 var globalHeroID = 0;
 
-var redBandanas;
+// var redBandanas;
 
 
 const CANVAS_WIDTH = canvas.width;
@@ -43,9 +43,6 @@ lftd = () => {
 		draw(event);
 	}
 
-	if (chapter != null && chapter.startStatus) {
-		// redBandanas.move();
-	}
 
 }
 
@@ -76,11 +73,15 @@ buildingChapter = () => {
 	start.startStatus = true;
 	start.startButtonClear(); // clear start button
 	
-	chapter = new Chapter1(); // chapter start
-	chapter.getWrongPlaces();
-
 	user = new User(); // user create
 	user.getWallCharacter();
+
+	chapter = new Chapter1(); // chapter start // bolum secilirken belirlenecek - suanlik direk secili geliyor
+	chapter.getWrongPlaces(); // get chapter wrong places
+	chapter.low(); // burasi oyun derecesi secilirken belirlenecek - suanlik direk secili geliyor
+
+
+
 
 }
 
@@ -117,6 +118,12 @@ draw = () => {
 	clearContext();
 	putHeroesMap();	// puts the heroes on the map
 
+
+	if (chapter != null && chapter.startStatus) {
+		putMonstersMap();
+	}
+
+
 	if (selectedHero != null) {
 		context.drawImage(
 			selectedHero.getObject(),
@@ -144,6 +151,54 @@ draw = () => {
 		context.fillStyle = whiteOrRed(e.offsetX, e.offsetY);
 		context.fill();
 	}
+
+}
+
+putMonstersMap = () => {
+
+	for (let monster in chapter.monsters) {
+		for (let i in chapter.monsters[monster]) {
+			/*
+			context.drawImage(
+				chapter.monsters[monster][i].spriteMonsterImage,
+				chapter.monsters[monster][i].w,
+				120,
+				60,
+				60,
+				chapter.monsters[monster][i].h,
+				0,
+				60,
+				60
+			);
+			*/
+
+			context.drawImage(
+				chapter.monsters[monster][i].spriteMonsterImage,
+				chapter.monsters[monster][i].w,
+				120,
+				60,
+				60,
+				chapter.monsters[monster][i].y,
+				0,
+				60,
+				60
+			);
+
+			chapter.monsters[monster][i].w += 60;
+			chapter.monsters[monster][i].y += 5;
+			if (chapter.monsters[monster][i].w > 120) {chapter.monsters[monster][i].w = 0;}
+			if (chapter.monsters[monster][i].y > 600) {chapter.monsters[monster][i].y = 0;}
+
+		} 
+	}
+
+	/*
+	context.drawImage(this.spriteMonsterImage, this.w, 120, 60, 60, this.h, 0, 60, 60);
+	this.w+=60;
+	this.h+=5;
+	if (this.w>120) {this.w=0;}
+	if (this.h>600) {this.h=0;}
+	*/
 
 }
 
