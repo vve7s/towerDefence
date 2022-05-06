@@ -1,21 +1,24 @@
 class redBandana {
 
+
 	redBandanaInformation = {
 		'healt': 100,
 		'speed': 10,
 		'live': 1 
 	};
 
-	constructor() {
+	constructor(x, y) {
 		this.spriteMonsterImage = new Image();
 		this.spriteMonsterImage.src = "img/monsters/redBandana/redBandana.png";
 		
 		this.counter = 0;
 		this.w = 0;
 		this.h = 60;
+		this.x = x;
+		this.y = y;
 	}
 
-	create(count) {
+	position(x, y) {
 
 	}
 

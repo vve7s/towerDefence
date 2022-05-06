@@ -2,7 +2,12 @@ class Chapter1 {
 
 	/* chapter information */
 	chapterInformation = {
-		
+
+	};
+
+	monsters = {
+		'redBandana': {},
+		'blueBandana': {}
 	};
 
 	constructor() {
@@ -40,76 +45,77 @@ class Chapter1 {
 
 		/* path */
 		wrongPlaces.push(
-		{
-			imgWX: {
-				start: 0,
-				end: 172
+			{
+				imgWX: {
+					start: 0,
+					end: 172
+				},
+				imgWY: {
+					start: 270,
+					end: 370
+				}
 			},
-			imgWY: {
-				start: 270,
-				end: 370
-			}
-		},
-		{
-			imgWX: {
-				start: 92,
-				end: 172
+			{
+				imgWX: {
+					start: 92,
+					end: 172
+				},
+				imgWY: {
+					start: 88,
+					end: 370
+				}
 			},
-			imgWY: {
-				start: 88,
-				end: 370
-			}
-		},
-		{
-			imgWX: {
-				start: 92,
-				end: 335
+			{
+				imgWX: {
+					start: 92,
+					end: 335
+				},
+				imgWY: {
+					start: 88,
+					end: 188
+				}
 			},
-			imgWY: {
-				start: 88,
-				end: 188
-			}
-		},
-		{
-			imgWX: {
-				start: 255,
-				end: 335
+			{
+				imgWX: {
+					start: 255,
+					end: 335
+				},
+				imgWY: {
+					start: 88,
+					end: 430
+				}
 			},
-			imgWY: {
-				start: 88,
-				end: 430
-			}
-		},
-		{
-			imgWX: {
-				start: 255,
-				end: 545
+			{
+				imgWX: {
+					start: 255,
+					end: 545
+				},
+				imgWY: {
+					start: 335,
+					end: 430
+				}
 			},
-			imgWY: {
-				start: 335,
-				end: 430
-			}
-		},
-		{
-			imgWX: {
-				start: 465,
-				end: 545
+			{
+				imgWX: {
+					start: 465,
+					end: 545
+				},
+				imgWY: {
+					start: 215,
+					end: 430
+				}
 			},
-			imgWY: {
-				start: 215,
-				end: 430
+			{
+				imgWX: {
+					start: 465,
+					end: 800
+				},
+				imgWY: {
+					start: 215,
+					end: 315
+				}
 			}
-		},
-		{
-			imgWX: {
-				start: 465,
-				end: 800
-			},
-			imgWY: {
-				start: 215,
-				end: 315
-			}
-		});
+		);
 	}
 
 	/* just for test */
@@ -171,6 +177,7 @@ class Chapter1 {
 		this.chapterInformation = {
 			'totalRound': 15,
 			'roundSpeed': 10,
+			'round': 0,
 			'rounds': {
 				1:{
 					'redBandana': 10,
@@ -209,6 +216,33 @@ class Chapter1 {
 
 	high() {
 
+	}
+
+	next() {
+		let tempTime = 0;
+		if (this.chapterInformation.rounds[++this.chapterInformation.round]) {
+			console.log(this.chapterInformation.rounds[this.chapterInformation.round]);
+
+			for (let monster in this.chapterInformation.rounds[this.chapterInformation.round]) {
+				console.log(monster);
+				// console.log(this.chapterInformation.rounds[this.chapterInformation.round][monster]);
+				for (let i = 0; i < this.chapterInformation.rounds[this.chapterInformation.round][monster]; i++) {
+					tempTime += 25;
+					this.monsters[monster][i] =  eval("new "+ monster + "(" + 0 + "," + (330 - tempTime) + ")");
+					//console.log(i);
+
+				}
+
+			}
+
+			//this.redBandanas[1] = new redBandana();
+			console.log(this.monsters);
+			//console.log(this.redBandanas[1].redBandanaInformation);
+
+
+		} else {
+			console.log("CHAPTER BITTI");	
+		}
 	}
 
 
