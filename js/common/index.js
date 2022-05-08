@@ -155,39 +155,50 @@ draw = () => {
 }
 
 putMonstersMap = () => {
-
+  
 	for (let monster in chapter.monsters) {
 		for (let i in chapter.monsters[monster]) {
-			/*
+		
+      chapter.monsters[monster][i].move();
+      // w = 0
+      // h = 60
+      // x = 0
+      // y = 330
+      /*
 			context.drawImage(
 				chapter.monsters[monster][i].spriteMonsterImage,
-				chapter.monsters[monster][i].w,
-				120,
-				60,
-				60,
+        chapter.monsters[monster][i].iw,
+        chapter.monsters[monster][i].ih,
+        chapter.monsters[monster][i].w,
 				chapter.monsters[monster][i].h,
-				0,
-				60,
-				60
-			);
-			*/
-
-			context.drawImage(
-				chapter.monsters[monster][i].spriteMonsterImage,
-				chapter.monsters[monster][i].w,
-				120,
-				60,
-				60,
+				chapter.monsters[monster][i].x,
 				chapter.monsters[monster][i].y,
-				0,
-				60,
-				60
+				chapter.monsters[monster][i].cx,
+				chapter.monsters[monster][i].cy
 			);
 
-			chapter.monsters[monster][i].w += 60;
-			chapter.monsters[monster][i].y += 5;
-			if (chapter.monsters[monster][i].w > 120) {chapter.monsters[monster][i].w = 0;}
-			if (chapter.monsters[monster][i].y > 600) {chapter.monsters[monster][i].y = 0;}
+			chapter.monsters[monster][i].iw += 60;
+      // chapter.monsters[monster][i].x += 5;
+			
+			
+      if (chapter.monsters[monster][i].iw > 120) {
+        chapter.monsters[monster][i].iw = 0;
+      }
+			
+      if (chapter.monsters[monster][i].x > 600) {
+        chapter.monsters[monster][i].x = 0;
+      }
+
+      if (chapter.monsters[monster][i].x > 100) {
+        if (chapter.monsters[monster][i].y < 130) {
+          chapter.monsters[monster][i].x += 5;
+        } else {
+          chapter.monsters[monster][i].y -= 5;
+        }
+      } else {
+        chapter.monsters[monster][i].x += 5;
+      }
+      */
 
 		} 
 	}

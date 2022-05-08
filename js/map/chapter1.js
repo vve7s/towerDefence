@@ -228,7 +228,7 @@ class Chapter1 {
 				// console.log(this.chapterInformation.rounds[this.chapterInformation.round][monster]);
 				for (let i = 0; i < this.chapterInformation.rounds[this.chapterInformation.round][monster]; i++) {
 					tempTime += 25;
-					this.monsters[monster][i] =  eval("new "+ monster + "(" + 0 + "," + (330 - tempTime) + ")");
+					this.monsters[monster][i] =  eval("new "+ monster + "(" + (0 - tempTime) + "," + 330 + ")");
 					//console.log(i);
 
 				}
