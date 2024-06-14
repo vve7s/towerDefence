@@ -40,11 +40,22 @@ class User {
 		return this.healt;
 	}
 
+	damage(damage) {
+		this.healt = this.healt - damage;
+		console.log("HEALT :>> " + this.healt);
+		this.domForHealt();
+		if (this.healt <= 0) {
+			console.log("END GAME - YOU LOSE");
+			chapter.startStatus = false;
+		}
+	}
+
 	domForMoney() {
 		document.getElementById("money").innerHTML = this.money;
 	}
 
 	domForHealt() {
+		console.log("DOM :>> " + this.healt);
 		document.getElementById("healt").innerHTML = this.healt;
 	}
 

@@ -8,13 +8,21 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+// chapter start
 document.getElementById("start").addEventListener("click", () => {
 	console.log("start basildi");
 
 
 	// redBandanas = new redBandana();
-	chapter.startStatus = true;
-	chapter.next();
+	if (chapter.startStatus == false) {
+
+		chapter.startStatus = true;
+		chapter.next();
+		return;
+
+	} else {
+		console.log("Round devam ediyor");
+	}
 	
 
 });
@@ -36,7 +44,7 @@ document.getElementById("canvas").addEventListener("click", (event) => {
 	heroSkillsHide(); // clear hero configs
 
 	// let mousePos = getMousePos(canvas, event);
-	console.log(e.offsetX, e.offsetY);
+	console.log(`x: ${e.offsetX} - y: ${e.offsetY}`);
 
 	if (!start.startStatus) { // game starting
 		if (start.isInside(e.offsetX, e.offsetY)) { // clicked start

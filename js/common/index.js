@@ -13,6 +13,7 @@ var mapOnTheHeroesConfigs = []; // hero settings on the map
 var wrongPlaces = []; // forbidden places on the map
 var e; // global mouse event
 var globalHeroID = 0;
+var globalMonsterID = 0;
 
 // var redBandanas;
 
@@ -30,19 +31,14 @@ wall = document.getElementsByClassName("wall")[0];
 /* heroes skills */
 heroSkills = document.getElementsByClassName("config")[0];
 
-
 /* game start (animationFrame) */
 lftd = () => {
-
-
 	if (gameStatus) {
 		window.requestAnimationFrame(lftd);
 	}
-
 	if (start.startStatus) {
-		draw(event);
+		draw();
 	}
-
 
 }
 
@@ -120,7 +116,9 @@ draw = () => {
 
 
 	if (chapter != null && chapter.startStatus) {
-		putMonstersMap();
+		putMonstersMap(); // puts the monster on the map, every second
+		checkMonsterInHeroesArea(); // heroes check monster in area
+		checkChapterStatus();
 	}
 
 
@@ -154,65 +152,45 @@ draw = () => {
 
 }
 
+checkMonsterInHeroesArea = () => {
+	mapOnTheHeroes.forEach(function(hero){
+		hero.object.checkEnemyInArea();
+		// hero.object.attack(); // silinecek
+	})
+}
+
 putMonstersMap = () => {
   
 	for (let monster in chapter.monsters) {
 		for (let i in chapter.monsters[monster]) {
-		
-      chapter.monsters[monster][i].move();
-      // w = 0
-      // h = 60
-      // x = 0
-      // y = 330
-      /*
-			context.drawImage(
-				chapter.monsters[monster][i].spriteMonsterImage,
-        chapter.monsters[monster][i].iw,
-        chapter.monsters[monster][i].ih,
-        chapter.monsters[monster][i].w,
-				chapter.monsters[monster][i].h,
-				chapter.monsters[monster][i].x,
-				chapter.monsters[monster][i].y,
-				chapter.monsters[monster][i].cx,
-				chapter.monsters[monster][i].cy
-			);
-
-			chapter.monsters[monster][i].iw += 60;
-      // chapter.monsters[monster][i].x += 5;
-			
-			
-      if (chapter.monsters[monster][i].iw > 120) {
-        chapter.monsters[monster][i].iw = 0;
-      }
-			
-      if (chapter.monsters[monster][i].x > 600) {
-        chapter.monsters[monster][i].x = 0;
-      }
-
-      if (chapter.monsters[monster][i].x > 100) {
-        if (chapter.monsters[monster][i].y < 130) {
-          chapter.monsters[monster][i].x += 5;
-        } else {
-          chapter.monsters[monster][i].y -= 5;
-        }
-      } else {
-        chapter.monsters[monster][i].x += 5;
-      }
-      */
-
+			if (chapter.monsters[monster][i].getLive() == 1) {
+				chapter.monsters[monster][i].move();
+			}
 		} 
 	}
 
-	/*
-	context.drawImage(this.spriteMonsterImage, this.w, 120, 60, 60, this.h, 0, 60, 60);
-	this.w+=60;
-	this.h+=5;
-	if (this.w>120) {this.w=0;}
-	if (this.h>600) {this.h=0;}
-	*/
-
 }
 
+/* chapter status is checked */
+checkChapterStatus = () => {
+
+	// chapter.getLiveMonster();
+	for (let monster in chapter.monsters) {
+		let isContinue = 1;
+		for (let i in chapter.monsters[monster]) {
+			if (chapter.monsters[monster][i].getLive() == 0) {
+				isContinue = 0;
+			} else if(chapter.monsters[monster][i].getLive() == 1) {
+				return;
+			}
+		} 
+		if (isContinue == 0) {
+			console.log("Chapter END");
+			chapter.startStatus = false;
+
+		}
+	}
+}
 
 /* put heroes map */
 putHeroesMap = () => {

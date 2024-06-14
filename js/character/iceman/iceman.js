@@ -66,12 +66,20 @@ class Iceman {
 			console.log(ths.imgIcemanSprite);
 		};
 		*/
+
 	}
 
 	create(xpoint, ypoint, x, y, id) {
 		this.xpoint = xpoint;
 		this.ypoint = ypoint;
 		this.id = id;
+		this.x = x;
+		this.y = y;
+
+		this.iw = 800;
+		this.cx = this.x -40;
+		this.cy = this.y -20;
+		this.attackStatus = false;
 
 		
 		this.setMapOnTheHeroes(x, y); // puts the hero on the map
@@ -211,7 +219,6 @@ class Iceman {
 	/* set to area */
 	setArea() {
 
-
 		/* Can the skill be upgraded? */
 		if (this.areaIsUpgraded()) {
 			this.heroInformation.areaRateLevel++; // level up
@@ -259,6 +266,123 @@ class Iceman {
 			pi1: (0 * Math.PI),
 			pi2: (2 * Math.PI)
 		});
+	}
+
+	checkEnemyInArea() {
+		for (let monster in chapter.monsters) {
+			for (let i in chapter.monsters[monster]) {
+				if (chapter.monsters[monster][i].getLive() == 1) {
+
+					let point = Math.sqrt(Math.pow((chapter.monsters[monster][i].x - this.x), 2) + Math.pow((chapter.monsters[monster][i].y - this.y), 2));
+					if (point > 0 && (point+20) <= this.imgIcemanSprite.getAttribute("area")) {
+						// console.log("DUSMAN BULUNDU");
+						// this.attack();
+						this.attackStatus = true;
+						this.attack(chapter.monsters[monster][i].getPosition());
+						chapter.monsters[monster][i].kill();
+						// delete chapter.monsters[monster][i];
+					}
+				}
+
+			}
+		}
+
+		/*
+		if (this.attackStatus) {
+			this.attack();
+		}
+		*/
+
+	}
+
+	/*
+
+		context.drawImage(
+			value.img,
+			value.imgX,
+			value.imgY,
+			value.imgW,
+			value.imgH,
+			value.cnsX,
+			value.cnsY,
+			value.cnsW,
+			value.cnsH
+		)
+
+	*/
+
+	attack(coordinat) {
+		console.log(coordinat);
+		console.log("x:>> " + this.cx + " y:>> " + this.cy);
+		this.spriteMonsterImage = new Image();
+		this.spriteMonsterImage.src = "../img/character/iceman/icemanv2_fire1.png";
+
+		context.drawImage(
+			this.spriteMonsterImage,
+			this.iw,
+			0,
+			80,
+			80,
+			coordinat.x,
+			coordinat.y,
+			40,
+			40
+		);
+        
+
+        this.iw -= 80;
+		if (this.iw <= 0) {
+			this.iw = 800;
+		}
+
+        if (Math.abs(this.cx-coordinat.x) <= 10 && Math.abs(this.cy-coordinat.y) <= 10) {
+			coordinat.x = this.cx -40;
+			coordinat.y = this.cy -20;
+        }
+
+        if (coordinat.y < this.cy) {
+            coordinat.y += 10;
+        }
+        if (coordinat.y > this.cy) {
+            coordinat.y -= 10;
+        }
+        if (coordinat.x < this.cx) {
+            coordinat.x += 10;
+        }
+        if (coordinat.x > this.cx) {
+            coordinat.x -= 10;
+        }
+
+
+        context.restore(); 
+
+		return;
+		context.drawImage(
+			this.spriteMonsterImage,
+			this.iw,
+			0,
+			80,
+			80,
+			this.cw,
+			this.cy,
+			40,
+			40
+		);
+
+		this.cw -= 10;
+		if (this.x - this.cw >= this.heroInformation.area) {
+			this.cw = this.x -40;
+		}
+
+		this.iw -= 80;
+		if (this.iw <= 0) {
+			this.iw = 800;
+		}
+
+	}
+
+	stop() {
+		this.attackStatus = false;
 	}
 
 	getAttributeArea() {
