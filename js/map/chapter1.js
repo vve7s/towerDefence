@@ -118,8 +118,185 @@ class Chapter1 {
 		);
 	}
 
-	/* just for test */
+
+	/* get map lines */
 	getMapLines() {
+
+		return {
+			1: {
+				x: {
+					start: 0,
+					end: 130,
+					direction: {
+						up: false,
+						right: true,
+						down: false,
+						left: false,
+					}
+				},
+				y: {
+					start: 330,
+					end: 330,
+					direction: {
+						up: false,
+						right: false,
+						down: false,
+						left: false,
+					}
+				},
+				start: true,
+				end: false,
+			},
+			2: {
+				x: {
+					start: 130,
+					end: 130,
+					direction: {
+						up: false,
+						right: false,
+						down: false,
+						left: false,
+					}
+				},
+				y: {
+					start: 330,
+					end: 150,
+					direction: {
+						up: true,
+						right: false,
+						down: false,
+						left: false,
+					}
+				},
+				start: false,
+				end: false,
+			},
+			3: {
+				x: {
+					start: 130,
+					end: 295,
+					direction: {
+						up: false,
+						right: true,
+						down: false,
+						left: false,
+					}
+				},
+				y: {
+					start: 150,
+					end: 150,
+					direction: {
+						up: false,
+						right: false,
+						down: false,
+						left: false,
+					}
+				},
+				start: false,
+				end: false,
+			},
+			4: {
+				x: {
+					start: 295,
+					end: 295,
+					direction: {
+						up: false,
+						right: false,
+						down: false,
+						left: false,
+					}
+				},
+				y: {
+					start: 150,
+					end: 390,
+					direction: {
+						up: false,
+						right: false,
+						down: true,
+						left: false,
+					}
+				},
+				start: false,
+				end: false,
+			},
+			5: {
+				x: {
+					start: 295,
+					end: 505,
+					direction: {
+						up: false,
+						right: true,
+						down: false,
+						left: false,
+					}
+				},
+				y: {
+					start: 390,
+					end: 390,
+					direction: {
+						up: false,
+						right: false,
+						down: false,
+						left: false,
+					}
+				},
+				start: false,
+				end: false,
+			},
+			6: {
+				x: {
+					start: 505,
+					end: 505,
+					direction: {
+						up: false,
+						right: false,
+						down: false,
+						left: false,
+					}
+				},
+				y: {
+					start: 390,
+					end: 270,
+					direction: {
+						up: true,
+						right: false,
+						down: false,
+						left: false,
+					}
+				},
+				start: false,
+				end: false,
+			},
+			7: {
+				x: {
+					start: 505,
+					end: 800,
+					direction: {
+						up: false,
+						right: true,
+						down: false,
+						left: false,
+					}
+				},
+				y: {
+					start: 270,
+					end: 270,
+					direction: {
+						up: false,
+						right: false,
+						down: false,
+						left: false,
+					}
+				},
+				start: false,
+				end: false,
+			},
+			8: {
+				start: false,
+				end: true
+			}
+		};
+
 		/* map line */
 		context.beginPath();
 		context.lineWidth = 1;
@@ -134,6 +311,7 @@ class Chapter1 {
 		context.lineTo(505,390);
 		context.lineTo(505,270);
 		context.lineTo(800,270);
+		
 
 		context.stroke();
 
@@ -173,6 +351,18 @@ class Chapter1 {
 		context.stroke();
 	}
 
+	/*
+	getLiveMonster() {
+		for (let monster in this.monsters) {
+			for (let i in this.monsters[monster]) {
+				if (this.monsters[monster][i].getLive() == 0) {
+
+				}
+			}
+		}
+	}
+	*/
+
 	low() {
 		this.chapterInformation = {
 			'totalRound': 15,
@@ -180,7 +370,7 @@ class Chapter1 {
 			'round': 0,
 			'rounds': {
 				1:{
-					'redBandana': 10,
+					'redBandana': 100,
 					// 'blueBandana': 11,
 
 				},
@@ -219,24 +409,23 @@ class Chapter1 {
 	}
 
 	next() {
+		mapOnTheHeroes.forEach(function(hero){
+			hero.object.stop();
+		})
+
 		let tempTime = 0;
 		if (this.chapterInformation.rounds[++this.chapterInformation.round]) {
-			console.log(this.chapterInformation.rounds[this.chapterInformation.round]);
 
 			for (let monster in this.chapterInformation.rounds[this.chapterInformation.round]) {
-				console.log(monster);
-				// console.log(this.chapterInformation.rounds[this.chapterInformation.round][monster]);
+				
 				for (let i = 0; i < this.chapterInformation.rounds[this.chapterInformation.round][monster]; i++) {
 					tempTime += 25;
-					this.monsters[monster][i] =  eval("new "+ monster + "(" + (0 - tempTime) + "," + 330 + ")");
-					//console.log(i);
-
+					this.monsters[monster][i] =  eval("new "+ monster + "(" + (0 - tempTime) + "," + 330 + ", " + ++globalMonsterID +")");
 				}
 
 			}
 
 			//this.redBandanas[1] = new redBandana();
-			console.log(this.monsters);
 			//console.log(this.redBandanas[1].redBandanaInformation);
 
 
